@@ -1,0 +1,39 @@
+up to 9 crossings, only K[8,12] suspicious (said distinct, shouldn't be).
+
+10_43 distinct
+10_37 distinct
+10_45 symmetric
+10_33 symmetric
+10_17 symmetric
+10_71 distinct
+10_48 distinct
+10_79 symmetric
+
+10_81 symmetric
+10_99 symmetric
+10_88 symmetric
+10_115 symmetric
+10_123 symmetric
+10_109 symmetric
+10_118 symmetric 
+
+
+list of amphichiral knots with 10 crossings: 33, 37, 43, 45, 79, 81, 88, 99, 109, 115, 118, 123, 109
+
+
+apparent errors:
+	distinct eigs but amphichiral: 43, 37, 8_12
+	symmetric eigs but non-amphiciral:
+apparent correct:
+	distinct eigs and non-amphichiral: 48, 71, 104, 91,
+	symmetric eigs and amphichiral: 17, 45, 33, 79, 81, 99, 88, 115, 123, 118, 109
+
+
+What do 48, 71, 91, and 104 have in common that 43 and 37 do not? what about 8_12?
+is it strongly invertible-ness?
+
+strongly invertible: 48, 
+
+bridge index 2 are always strongly invertible: 8_12, 10_43, 10_37, 10_17, 10_45, 10_33, 
+
+the criteria is not strongly-invertible, it has to be something else.

@@ -3,7 +3,7 @@
 BeginPackage["KhovanovLaplacian`"]; Print["Loading KhovanovLaplacian`..."]
 Needs["KnotTheory`"]
 (*Link; X; *)S; V; c; vp; vm; KhBracket; v; d; q; np; nm; CC; t; Betti; qBetti; Kh; NewTensorToString; GetDQ; qLapNew; LapBetti; qLapBetti; LapKh; qSpectra; qSpectraAllEigs; checkMirror;
-KhSilent; BettiSilent; qBettiSilent; qSpectraAllEigsSilent;
+KhSilent; BettiSilent; qBettiSilent; qSpectraAllEigsSilent; qSpectraAllEigsLatex;
 
 Begin["`Private`"]
 (*Begin functions copied from Categorification package*)
@@ -98,7 +98,7 @@ KhSilent[L_PD, opts___] := KhSilent[L, opts] =
 NewTensorToString[obj_] := (
 Return[StringReplace[ToString[obj], {", "-> "","v["->"v", "]"->"", "vm["-> "m", "vp[" -> "p", " "-> ""}]]
 )
-
+(*Note: this gets d[dim, deg] from CC[dim-1,deg] to CC[dim, deg], i.e. index of boundary map is index of destination space*)
 GetDQ[L_PD,dim_Integer,deg_Integer] := (
 	If[(*dim<0 ||*) dim>Length[L], Return[{0}],
 	If[Length[CC[L,dim,deg]]==0 || ToString[First[CC[L,dim,deg]]]==ToString[0],Return[SparseArray[{},{1,Length[CC[L,dim-1,deg]]}]],
@@ -162,6 +162,25 @@ qSpectraAllEigsSilent[L_,r_] := (
 
 qSpectraAllEigs[L_] := qSpectraAllEigs[L] = qSpectraAllEigs[L,#] &/@ Range[-nm[L],Length[L]-nm[L]]
 qSpectraAllEigsSilent[L_] := qSpectraAllEigsSilent[L] = qSpectraAllEigsSilent[L,#] &/@ Range[-nm[L],Length[L]-nm[L]]
+
+nf=With[{m=ToExpression@#1},Row[{If[PossibleZeroQ[m-Round[m]],ToString@Round[m],#1],Sequence@@If[#3=="",{},{"\[Times]",#2^#3}]}]]&;
+
+qSpectraAllEigsLatex[L_,r_, deg_] :=(eigs = Chop[SetPrecision[Eigenvalues[SetPrecision[qLapNew[L,r, deg],MachinePrecision]],MachinePrecision],10^-5];
+	Print[
+		StringForm["`` & `` & `` \\\\ \\hline", r, deg,
+			StringRiffle[
+				StringReplace[ToString[#],"."~~EndOfString->""] &/@ Reverse[eigs],", "
+				]
+		]
+	]; eigs)
+
+qSpectraAllEigsLatex[L_,r_] := (
+	degs = Union[Deg /@ KhBracket[L, r+nm[L]]] + np[L] - nm[L] + r;
+	qSpectraAllEigsLatex[L,r, #] &/@ degs
+)
+
+qSpectraAllEigsLatex[L_] := qSpectraAllEigsLatex[L] = qSpectraAllEigsLatex[L,#] &/@ Range[-nm[L],Length[L]-nm[L]]
+
 
 checkMirror[PD_] := (
 	mPD = Mirror[PD];

@@ -1,0 +1,116 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3893,        108]
+NotebookOptionsPosition[      2941,         86]
+NotebookOutlinePosition[      3347,        102]
+CellTagsIndexPosition[      3304,         99]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{"SetDirectory", "[", 
+  "\"\<C:\\\\Users\\\\benja\\\\Documents\\\\basic_khovanov_testing\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", " ", "KnotTheory`"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", " ", "KhovanovLaplacian`"}]}], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"26a01c08-3368-404d-a6f8-3ccc0ca65183"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "SetDirectory", "cdir", 
+   "\"Cannot set current directory to \\!\\(\\*RowBox[{\\\"\\\\\\\"C:\\\\\\\\\
+\\\\\\\\Users\\\\\\\\\\\\\\\\benja\\\\\\\\\\\\\\\\Documents\\\\\\\\\\\\\\\\\
+basic_khovanov_testing\\\\\\\"\\\"}]\\).\"", 2, 1, 1, 34875889122338528191, 
+   "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.920702804797636*^9, 3.920702836405752*^9, 
+  3.9207029274868298`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"84e425e7-87a4-c942-a94a-597eba246dd0"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellChangeTimes->{3.920702804893114*^9, 3.9207028364137573`*^9, 
+  3.9207029274995136`*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"f1dca12e-a00d-7949-a042-e8ba2d3bfad5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Get", "noopen", 
+   "\"Cannot open \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"KnotTheory`\\\\\\\"\\\"}]\\).\"", 2, 2, 2, 
+   34875889122338528191, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.920702804797636*^9, 3.920702836405752*^9, 
+  3.9207029275153103`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"c775cba9-ab34-db44-86ed-bcdc94afb1d1"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellChangeTimes->{3.920702804893114*^9, 3.9207028364137573`*^9, 
+  3.9207029275264072`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"5b37f8a3-aed7-dd4f-b6d8-44cbfd6e4cc1"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Get", "noopen", 
+   "\"Cannot open \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"KhovanovLaplacian`\\\\\\\"\\\"}]\\).\"", 2, 3, 3,
+    34875889122338528191, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.920702804797636*^9, 3.920702836405752*^9, 
+  3.920702927528406*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"6b4da2d4-5e32-2a46-86f4-bb30d5565830"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellChangeTimes->{3.920702804893114*^9, 3.9207028364137573`*^9, 
+  3.9207029275368633`*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"547194b8-3dab-a949-a615-4d9050745d16"]
+}, Open  ]]
+},
+WindowSize->{960, 532},
+WindowMargins->{{-5.5, Automatic}, {Automatic, -5.5}},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2e02f6b4-e46f-b74e-a425-6dc7d50457e4"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 346, 6, 67, "Input",ExpressionUUID->"26a01c08-3368-404d-a6f8-3ccc0ca65183"],
+Cell[929, 30, 537, 12, 28, "Message",ExpressionUUID->"84e425e7-87a4-c942-a94a-597eba246dd0"],
+Cell[1469, 44, 205, 3, 32, "Output",ExpressionUUID->"f1dca12e-a00d-7949-a042-e8ba2d3bfad5"],
+Cell[1677, 49, 412, 11, 28, "Message",ExpressionUUID->"c775cba9-ab34-db44-86ed-bcdc94afb1d1"],
+Cell[2092, 62, 205, 3, 32, "Output",ExpressionUUID->"5b37f8a3-aed7-dd4f-b6d8-44cbfd6e4cc1"],
+Cell[2300, 67, 417, 11, 28, "Message",ExpressionUUID->"6b4da2d4-5e32-2a46-86f4-bb30d5565830"],
+Cell[2720, 80, 205, 3, 32, "Output",ExpressionUUID->"547194b8-3dab-a949-a615-4d9050745d16"]
+}, Open  ]]
+}
+]
+*)
+
