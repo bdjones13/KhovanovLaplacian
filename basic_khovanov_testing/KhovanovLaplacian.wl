@@ -3,7 +3,7 @@
 BeginPackage["KhovanovLaplacian`"]; Print["Loading KhovanovLaplacian`..."]
 Needs["KnotTheory`"]
 (*Link; X; *)S; V; c; vp; vm; KhBracket; v; d; q; np; nm; CC; t; Betti; qBetti; Kh; NewTensorToString; GetDQ; qLapNew; LapBetti; qLapBetti; LapKh; qSpectra; qSpectraAllEigs; checkMirror;
-KhSilent; BettiSilent; qBettiSilent; qSpectraAllEigsSilent; qSpectraAllEigsLatex;
+KhSilent; BettiSilent; qBettiSilent; qSpectraAllEigsSilent; qSpectraLowestEigsLatex;
 
 Begin["`Private`"]
 (*Begin functions copied from Categorification package*)
@@ -165,21 +165,36 @@ qSpectraAllEigsSilent[L_] := qSpectraAllEigsSilent[L] = qSpectraAllEigsSilent[L,
 
 nf=With[{m=ToExpression@#1},Row[{If[PossibleZeroQ[m-Round[m]],ToString@Round[m],#1],Sequence@@If[#3=="",{},{"\[Times]",#2^#3}]}]]&;
 
-qSpectraAllEigsLatex[L_,r_, deg_] :=(eigs = Chop[SetPrecision[Eigenvalues[SetPrecision[qLapNew[L,r, deg],MachinePrecision]],MachinePrecision],10^-5];
+
+
+qSpectraLowestEigsLatex[L_,r_, deg_] :=( Lap = qLapNew[L,r,deg];
+	numeigs = Min[Dimensions[Lap],25];
+	alleigs = Eigenvalues[SetPrecision[Lap,MachinePrecision]];
+	smallest = Chop[TakeSmallest[alleigs,numeigs],10^-3];
+	(*eigs = Chop[SetPrecision[Eigenvalues[SetPrecision[Lap,MachinePrecision],numeigs],MachinePrecision],10^-3];*)
 	Print[
-		StringForm["`` & `` & `` \\\\ \\hline", r, deg,
+		StringForm["\t`` & `` & `` \\\\ \\hline", r, deg,
 			StringRiffle[
-				StringReplace[ToString[#],"."~~EndOfString->""] &/@ Reverse[eigs],", "
+				StringReplace[ToString[#],"."~~EndOfString->""] &/@ smallest,", "
 				]
 		]
 	]; eigs)
 
-qSpectraAllEigsLatex[L_,r_] := (
-	degs = Union[Deg /@ KhBracket[L, r+nm[L]]] + np[L] - nm[L] + r;
-	qSpectraAllEigsLatex[L,r, #] &/@ degs
+qSpectraLowestEigsLatex[PD_,r_] := (
+	degs = Union[Deg /@ KhBracket[PD, r+nm[PD]]] + np[PD] - nm[PD] + r;
+	qSpectraLowestEigsLatex[PD,r, #] &/@ degs
 )
 
-qSpectraAllEigsLatex[L_] := qSpectraAllEigsLatex[L] = qSpectraAllEigsLatex[L,#] &/@ Range[-nm[L],Length[L]-nm[L]]
+qSpectraLowestEigsLatex[L_] := qSpectraLowestEigsLatex[L] = (
+	LPD = PD[L];
+	Print["\\begin{longtable}[h]{|l|l|L|}"];
+	ns = NameString[L];
+	Print[StringForm["\\caption{Khovanov Laplacian nonempty spectra for $L = ``$. The planar diagram used is ``. }\\\\ \\hline",ns, LPD]];
+	Print["Homological Grading $r$ & Quantum Grading $q$ & Spectra $S_L^{r,q}$ \\\\ \\hline"];
+	qSpectraLowestEigsLatex[LPD,#] &/@ Range[-nm[LPD],Length[LPD]-nm[LPD]];
+	Print["\\end{longtable}"];
+	Print[""];
+)
 
 
 checkMirror[PD_] := (

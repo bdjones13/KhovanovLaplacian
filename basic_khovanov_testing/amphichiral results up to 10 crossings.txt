@@ -1,3 +1,6 @@
+symmetric: 4_1, 6_3, 8_18, 8_17, 8_3, 8_9,
+distinct: 8_12
+
 up to 9 crossings, only K[8,12] suspicious (said distinct, shouldn't be).
 
 10_43 distinct
