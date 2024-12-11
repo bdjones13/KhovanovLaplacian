@@ -4,6 +4,7 @@ BeginPackage["KhovanovLaplacian`"]; Print["Loading KhovanovLaplacian`..."]
 Needs["KnotTheory`"]
 (*Link; X; *)S; V; c; vp; vm; KhBracket; v; d; q; np; nm; CC; t; Betti; qBetti; Kh; NewTensorToString; GetDQ; qLapNew; LapBetti; qLapBetti; LapKh; qSpectra; qSpectraAllEigs; checkMirror;
 KhSilent; BettiSilent; qBettiSilent; qSpectraAllEigsSilent; qSpectraLowestEigsLatex;
+qDirac; qDiracPrint;
 
 Begin["`Private`"]
 (*Begin functions copied from Categorification package*)
@@ -92,9 +93,10 @@ KhSilent[L_PD, opts___] := KhSilent[L, opts] =
   Expand[Sum[t^r * qBettiSilent[L, r, opts], {r, -nm[L], Length[L]-nm[L]}]]
 
 (*End functions copied from Categorification package.*)
-(*Begin Laplacian-specific functions*)
 
 
+
+(*Begin Laplacian and Dirac-specific functions*)
 NewTensorToString[obj_] := (
 Return[StringReplace[ToString[obj], {", "-> "","v["->"v", "]"->"", "vm["-> "m", "vp[" -> "p", " "-> ""}]]
 )
@@ -204,6 +206,41 @@ checkMirror[PD_] := (
 	diffeigs = eigs1-Reverse[eigs2,{1,2}];
 	ContainsOnly[Flatten[Chop[diffeigs,0.001]],{0}]
 )
+
+
+qDirac[L_PD,r_Integer,q_Integer] := qDirac[L,r,q] = (
+newr = Min[r,Length[L]-nm[L]];(*if r is too large, cut it off*)
+lengths = Length[CC[L,#,q]] &/@ Range[-nm[L],Min[newr+1,Length[L]-nm[L]]];
+subtotals = Accumulate[lengths];
+Dirac = ConstantArray[0,{Total[lengths],Total[lengths]}];
+If[Length[subtotals]<=1,Return[Dirac],
+Dirac[[1;;lengths[[1]],subtotals[[1]]+1;;subtotals[[2]]]] = Transpose[GetDQ[L,-nm[L]+1,q]]; (*(d^{-n_{-},q})^*:C^{-n_{-},q}->C^{-n_{-}+1,q} *)
+Do[Dirac[[subtotals[[i-2]]+1;;subtotals[[i-1]],subtotals[[i-1]]+1;;subtotals[[i]]]]=Transpose[GetDQ[L,-nm[L]+i-1,q]],{i,3,Length[lengths]}];
+Dirac = Dirac + Transpose[Dirac];
+Return[Dirac]]
+)
+
+qDirac[L_,r_] := qDirac[L,r] = (
+	degs = Union[Deg /@ KhBracket[L, r+nm[L]]] + np[L] - nm[L] + r;
+	qDirac[L,r, #] &/@ degs
+)
+
+qDirac[L_] := qDirac[L] = qDirac[L,# ] &/@ Range[-nm[L],Length[L]-nm[L]];
+
+qDiracPrint[L_PD,r_Integer,q_Integer] := (
+	Print[StringForm["qDirac[``,``] = ",r,q]];
+	Dirac = qDirac[L,r,q];
+	Print[StringForm["``",MatrixForm[Dirac]]];
+	Dirac
+ )
+
+ qDiracPrint[L_,r_] := (
+    degs = Union[Deg /@ KhBracket[L, r+nm[L]]] + np[L] - nm[L] + r;
+	qDiracPrint[L,r, #] &/@ degs
+  ) 
+  
+  qDiracPrint[L_] := qDiracPrint[L,# ] &/@ Range[-nm[L],Length[L]-nm[L]];
+ 
 
 
 End[]
